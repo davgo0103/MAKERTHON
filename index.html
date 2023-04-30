@@ -1,686 +1,212 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<html>
+
+<html lang="zh_tw">
 
 <head>
-    <title>Water Resource Contract Web Page</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=2">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>水鏈 - 透過區塊鏈保存數據、領取獎勵</title>
+    <link rel="icon" type="image/x-icon" href="./img/recycling-water.png">
+    <meta name="description" content="Core HTML Project">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/select2/select2.min.css">
+    <link rel="stylesheet" href="vendor/owlcarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="vendor/lightcase/lightcase.css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400|Work+Sans:300,400,700" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.min.css">
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <link href="https://file.myfontastic.com/7vRKgqrN3iFEnLHuqYhYuL/icons.css" rel="stylesheet">
+    <link href="./css/sweetalert2.min.css" rel="stylesheet">
+
+    <!-- Modernizr JS for IE8 support of HTML5 elements and media queries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+
 </head>
 
-<body>
-    <h1>Water Resource Contract Web Page</h1>
-    <label for="address">User Address:</label>
-    <input type="text" id="user-address" />
-    <br />
-    <label for="usage">Usage Data:</label>
-    <input type="number" id="usage-input" />
-    <br />
-    <label for="quality">Quality Data:</label>
-    <input type="number" id="quality-input" />
-    <br />
-    <label for="reserve">Reserve Data:</label>
-    <input type="number" id="reserve-input" />
-    <br />
-    <label for="recycled">Recycled Data:</label>
-    <input type="number" id="recycled-input" />
-    <br />
-    <label for="billing">Billing Data:</label>
-    <input type="number" id="billing-input" />
-    <br />
-    <label for="totalUsage">Total Usage:</label>
-    <input type="number" id="total-input" />
-    <br />
-    <button onclick="setWaterData()" id = "set-water-data">Update Water Data</button>
-    <br />
-    <br />
-    <button onclick="getWaterUsage()" id = "get-water-usage">Get Total Usage</button>
-    <br /><br />
-    <label for="userData">User Data:</label>
-    <span id="userData"></span>
-    <br />
-    <button onclick="getWaterData()" id = "get-water-data">Get User Data</button>
-        <br /><br />
-    <label for="totalUsage">Total Usage:</label>
-    <span id="uptotal"></span>
-    <br />
-    <br />
-    <label for="totalUsage">Update Total Usage:</label>
-    <input type="number" id="update-total-input" />
-    <br />
-    <button onclick="updateWaterUsage()" id = "update-water-usage">Update Water Usage</button>
+<body data-spy="scroll" data-target="#navbar-nav-header" class="static-layout">
+    <div class="boxed-page">
+        <section id="gtco-who-we-are" class="bg-white">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" onclick="link()">
+                    <span class="lnr lnr-link"></span>
+                </a>
+                <div class="section-content">
+                    <div class="title-wrap">
+                        <h2 class="section-title animated-underline" >水鏈!<br>快速可靠<b> 公平、安全</b></h2>
+                        <p class="section-sub-title">利用區塊鏈的特性，數據不可修改不可否認 <br> 資料公開透明，誰在浪費一看就知道~</p>
+                        <p class="section-sub-title">請輸入地址：</p>
+                        <center>
+                            <div style="width:550px;height:60px">
+                                <input type="text" autofocus="autofocus" class="form-control" id="user-address"
+                                    style="text-align:center" />
+                                <button onclick="getWaterData()" id="get-water-data"
+                                    class="btn-outline-secondary">獲取鏈上數據</button>
+                            </div>
+                        </center>
 
+                    </div>
+
+
+                    <!-- /.row -->
+                </div>
+            </div>
+        </section> <!-- Counter Section -->
+        <section id="gtco-counter" class="overlay bg-fixed">
+            <div class="container">
+                <div class="section-content">
+                    <div class="row">
+                        <!-- Counter Item -->
+                        <div class="col-md-3 col-sm-6 counter-item">
+                            <i class="lnr lnr-earth"></i>
+                            <input id="usage-input" class="input-as-span" value="0" data-refresh-interval="100"
+                                style="font-size: 60px; color: white;">
+                            <h4>用水量</h4>
+                        </div>
+                        <div class="col-md-3 col-sm-6 counter-item">
+                            <i class="lnr lnr-drop"></i>
+                            <input id="quality-input" class="input-as-span" value="0" data-refresh-interval="100"
+                                style="font-size: 60px; color: white;">
+                            <h4>水質</h4>
+                        </div>
+                        <div class="col-md-3 col-sm-6 counter-item">
+                            <i class="lnr lnr-cloud"></i>
+                            <input id="reserve-input" class="input-as-span" value="0" data-refresh-interval="100"
+                                style="font-size: 60px; color: white;">
+                            <h4>儲水量</h4>
+                        </div>
+                        <div class="col-md-3 col-sm-6 counter-item">
+                            <i class="lnr lnr-sync"></i>
+                            <input id="recycled-input" class="input-as-span" value="0" data-refresh-interval="100"
+                                style="font-size: 60px; color: white;">
+                            <h4>回收水量</h4>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="gtco-features" class="bg-white">
+            <div class="container">
+                <div class="section-content">
+                    <div class="title-wrap">
+                        <h5 class="section-title">
+                            計費數據 :<br>
+                            <input id="billing-input" class="input-as-span" value="0" data-refresh-interval="100"
+                                style="font-size: 30px; color: black; width: 20%;">
+                        </h5>
+                        <p class="section-sub-title">每日用水量低於平均，將有機會獲得虛擬貨幣!!😁</p>
+                    </div>
+
+
+                    <div class="row text-center">
+                        <div class="col-md-4 col-sm-6 ">
+                            <img class="rounded-circle" src="icons/animat-responsive.gif"
+                                alt="Generic placeholder image" width="140" height="140">
+                            <h5 class="mb-4">更新用水量</h5>
+                            <input id="update-total-input" class="input-as-span" value="0" data-refresh-interval="100"
+                                style="font-size: 60px; color: black;">
+                            <p>模擬感測器在與API交互時的過程 </p>
+                            <p>每次更新用水量會將數值加在鏈上的總用水量上 </p>
+                            <p><a class="btn btn-orange" role="button" onclick="updateWaterUsage()"
+                                    id="update-water-usage">更新用水量</a></p>
+                        </div>
+  
+                        <div class="col-md-4 col-sm-6 ">
+                            <img class="rounded-circle" src="icons/animat-checkmark.gif" alt="Generic placeholder image"
+                                width="140" height="140">
+                            <h5 class="mb-4">更新水資源數據</h5>
+                            <p>直接修改上方資料</p>
+                            <p>模擬感測器在與API交互時的過程</p>
+                            <p><a onclick="setWaterData()" id="set-water-data" class="btn btn-orange"
+                                    role="button">更新水資源數據</a></p>
+                        </div>
+
+
+                        <div class="col-md-4 col-sm-6 ">
+                            <img class="rounded-circle" src="icons/animat-customize.gif" alt="Generic placeholder image"
+                                width="140" height="140">
+                            <h5 class="mb-4">獲取總用水量</h5>
+                            <input id="total-input" class="input-as-span" value="0" data-refresh-interval="100"
+                                style="font-size: 60px; color: black;">
+                            <p>可以查看用水量加總</p>
+                            <p>每日用水量低於平均，將有機會獲得虛擬貨幣!!😁</p>
+                            <p><a class="btn btn-orange" role="button" onclick="getWaterUsage()"
+                                    id="get-water-usage">獲取總用水量</a></p>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
+
+
+
+
+        <footer class="mastfoot mb-3 bg-white py-4 border-top">
+            <div class="inner container">
+                <div class="row">
+                    <div class="col-md-6 d-flex align-items-center justify-content-md-start justify-content-center">
+                        <p class="mb-0">&copy; 2023. All Right Reserved. Design by <span
+                                style="color: #EC9460">語法魔法師~</span></p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <nav class="nav nav-mastfoot justify-content-md-end justify-content-center">
+                            <a class="nav-link" href="#">
+                                <i class="icon-facebook"></i>
+                            </a>
+                            <a class="nav-link" href="#">
+                                <i class="icon-twitter"></i>
+                            </a>
+                            <a class="nav-link" href="#">
+                                <i class="icon-instagram"></i>
+                            </a>
+                            <a class="nav-link" href="#">
+                                <i class="icon-linkedin"></i>
+                            </a>
+                            <a class="nav-link" href="#">
+                                <i class="icon-youtube"></i>
+                            </a>
+                            <a class="nav-link" href="#">
+                                <i class="icon-pinterest"></i>
+                            </a>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+    <!-- External JS -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+    <script src="vendor/bootstrap/popper.min.js"></script>
+    <script src="vendor/bootstrap/bootstrap.min.js"></script>
+    <script src="vendor/select2/select2.min.js "></script>
+    <script src="vendor/owlcarousel/owl.carousel.min.js"></script>
+    <script src="vendor/isotope/isotope.min.js"></script>
+    <script src="vendor/lightcase/lightcase.js"></script>
+    <script src="vendor/waypoints/waypoint.min.js"></script>
+    <script src="vendor/countTo/jquery.countTo.js"></script>
+
+    <!-- Main JS -->
+    <script src="./js/sweetalert2.all.min.js"></script>
+    <script src="./js/app.min.js "></script>
+    <script src="./js/web3.min.js"></script>
+    <script src="./js/water.js"></script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/web3@1.9.0/dist/web3.min.js"></script>
-<script>
-    const ABI = [
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "user",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "usage",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "quality",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "reserve",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "recycled",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "billing",
-				"type": "uint256"
-			}
-		],
-		"name": "setWaterData",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "user",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "usage",
-				"type": "uint256"
-			}
-		],
-		"name": "updateWaterUsage",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "user",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "usage",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "quality",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "reserve",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "recycled",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "billing",
-				"type": "uint256"
-			}
-		],
-		"name": "WaterDataUpdated",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "user",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "uint256",
-				"name": "usage",
-				"type": "uint256"
-			}
-		],
-		"name": "WaterUsageUpdated",
-		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "user",
-				"type": "address"
-			}
-		],
-		"name": "getWaterData",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "usage",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "quality",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "reserve",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "recycled",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "billing",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "user",
-				"type": "address"
-			}
-		],
-		"name": "getWaterUsage",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "waterResources",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "usageData",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "qualityData",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "reserveData",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "recycledData",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "billingData",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "waterUsages",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	}
-];
 
-    const CONTRACT_ADDRESS = "0xa400FCbE33C82FDD8d2a0b9235724ab72A6B12C7";
-    
-    //const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
-    const web3 = new Web3(window.ethereum);
-    const contract = new web3.eth.Contract(ABI, CONTRACT_ADDRESS);
-
-    async function setWaterData() {
-        const address = document.getElementById("user-address").value;
-        const usage = document.getElementById("usage-input").value;
-        const quality = document.getElementById("quality-input").value;
-        const reserve = document.getElementById("reserve-input").value;
-        const recycled = document.getElementById("recycled-input").value;
-        const billing = document.getElementById("billing-input").value;
-
-        try {
-            await contract.methods
-                .setWaterData(address, usage, quality, reserve, recycled, billing)
-                .send({ from: window.ethereum.selectedAddress });
-            alert("Water data updated!");
-        } catch (e) {
-            console.error(e);
-            alert("Error updating water data.");
-        }
-    }
-
-
-    async function getWaterData() {
-        const userAddress = document.getElementById("user-address").value;
-
-        try {
-            const waterContract = new web3.eth.Contract(ABI, CONTRACT_ADDRESS);
-            const waterData = await waterContract.methods.getWaterData(userAddress).call();
-            document.getElementById("usage-input").value = waterData[0];
-            document.getElementById("quality-input").value = waterData[1];
-            document.getElementById("reserve-inpput").value = waterData[2];
-            document.getElementById("recycled-inpput").value = waterData[3];
-            document.getElementById("billing-input").value = waterData[4];
-        } catch (error) {
-            console.error(error);
-        }
-    }
-    async function updateWaterUsage() {
-        const userAddress = document.getElementById("user-address").value;
-        const usage = document.getElementById("usage-input").value;
-
-        try {
-            const waterContract = new web3.eth.Contract(ABI, CONTRACT_ADDRESS);
-            await waterContract.methods.updateWaterUsage(userAddress, usage).send({ from: userAddress });
-            alert("用水總量已更新");
-        } catch (error) {
-            console.error(error);
-            alert("更新用水總量時發生錯誤");
-        }
-    }
-
-
-    
-    async function setWaterData() {
-        const address = document.getElementById("user-address").value;
-        const usage = document.getElementById("usage-input").value;
-        const quality = document.getElementById("quality-input").value;
-        const reserve = document.getElementById("reserve-input").value;
-        const recycled = document.getElementById("recycled-input").value;
-        const billing = document.getElementById("billing-input").value;
-
-        // 檢查輸入是否為數字
-        if (
-            isNaN(parseInt(usage)) ||
-            isNaN(parseInt(quality)) ||
-            isNaN(parseInt(reserve)) ||
-            isNaN(parseInt(recycled)) ||
-            isNaN(parseInt(billing))
-        ) {
-            alert("請輸入數字！");
-            return;
-        }
-
-        // 呼叫合約的 setWaterData 函數
-        try {
-            const contract = await new web3.eth.Contract(ABI, CONTRACT_ADDRESS);
-            const accounts = await web3.eth.getAccounts();
-            await contract.methods
-                .setWaterData(address, usage, quality, reserve, recycled, billing)
-                .send({ from: accounts[0] ,gas: 1000000});
-            alert("用水數據設置成功！");
-        } catch (error) {
-            console.error(error);
-            alert("用水數據設置失敗！");
-        }
-    }
-
-
-
-    async function updateWaterUsage() {
-        const address = document.getElementById("user-address").value;
-        const usage = document.getElementById("update-total-input").value;
-        
-        // 檢查輸入是否為數字
-        if (isNaN(parseInt(usage))) {
-            alert("請輸入數字！");
-            return;
-        }
-
-        // 呼叫合約的 updateWaterUsage 函數
-        try {
-            const contract = await new web3.eth.Contract(ABI, CONTRACT_ADDRESS);
-            const accounts = await web3.eth.getAccounts();
-            await contract.methods.updateWaterUsage(address, usage).send({ from: accounts[0] });
-            alert("用水總量更新成功！");
-        } catch (error) {
-            console.error(error);
-            alert("用水總量更新失敗！");
-        }
-    }
-
-
-
-    async function getWaterData() {
-        const address = document.getElementById("user-address").value;
-
-        // 呼叫合約的 getWaterData 函數
-        try {
-            const contract = await new web3.eth.Contract(ABI, CONTRACT_ADDRESS);
-            const result = await contract.methods.getWaterData(address).call();
-            const usage = result[0];
-            const quality = result[1];
-            const reserve = result[2];
-            const recycled = result[3];
-            const billing = result[4];
-
-            // 顯示結果
-            document.getElementById("total-input").value = "";
-            document.getElementById("usage-input").value = usage;
-            document.getElementById("quality-input").value = quality;
-            document.getElementById("reserve-input").value = reserve;
-            document.getElementById("recycled-input").value = recycled;
-            document.getElementById("billing-input").value = billing;
-        } catch (error) {
-            console.error(error);
-            alert("獲取用水數據失敗！");
-        }
-    }
-
-    
-
-    async function getWaterUsage() {
-        const address = document.getElementById("user-address").value;
-        
-        const contractAbi = [
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "user",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "usage",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "quality",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "reserve",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "recycled",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "billing",
-				"type": "uint256"
-			}
-		],
-		"name": "setWaterData",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "user",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "usage",
-				"type": "uint256"
-			}
-		],
-		"name": "updateWaterUsage",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "user",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "usage",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "quality",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "reserve",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "recycled",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "billing",
-				"type": "uint256"
-			}
-		],
-		"name": "WaterDataUpdated",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "user",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "uint256",
-				"name": "usage",
-				"type": "uint256"
-			}
-		],
-		"name": "WaterUsageUpdated",
-		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "user",
-				"type": "address"
-			}
-		],
-		"name": "getWaterData",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "usage",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "quality",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "reserve",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "recycled",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "billing",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "user",
-				"type": "address"
-			}
-		],
-		"name": "getWaterUsage",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "waterResources",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "usageData",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "qualityData",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "reserveData",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "recycledData",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "billingData",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "waterUsages",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	}
-]; // 填入 ABI
-
-        const contract = new web3.eth.Contract(contractAbi, CONTRACT_ADDRESS);
-        const usage = await contract.methods.getWaterUsage(address).call();
-
-        document.getElementById("usage-input").value = "";
-            document.getElementById("quality-input").value = "";
-            document.getElementById("reserve-input").value = "";
-            document.getElementById("recycled-input").value = "";
-            document.getElementById("billing-input").value = "";
-        document.getElementById("total-input").value = usage;
-    }
-</script>
+</html>
